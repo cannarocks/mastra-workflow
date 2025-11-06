@@ -1,15 +1,15 @@
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
-import { pageActTool } from '../tools/page-act-tool';
-import { pageObserveTool } from '../tools/page-observe-tool';
-import { pageExtractTool } from '../tools/page-extract-tool';
-import { pageNavigateTool } from '../tools/page-navigate-tool';
+import { pageActTool } from '../tools/search/page-act-tool';
+import { pageObserveTool } from '../tools/search/page-observe-tool';
+import { pageExtractTool } from '../tools/search/page-extract-tool';
+import { pageNavigateTool } from '../tools/search/page-navigate-tool';
 
 const memory = new Memory();
 
 export const webAgent = new Agent({
-  name: 'Web Assistant',
+  name: 'Web Surfer',
   instructions: `
       You are a helpful web assistant that can navigate websites and extract information.
 

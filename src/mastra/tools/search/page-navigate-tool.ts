@@ -1,6 +1,6 @@
 import { createTool } from '@mastra/core/tools';
 import z from 'zod';
-import { sessionManager } from '../../lib/stage-hand';
+import { sessionManager } from '../../../lib/stage-hand';
 
 export const pageNavigateTool = createTool({
   id: 'web-navigate',

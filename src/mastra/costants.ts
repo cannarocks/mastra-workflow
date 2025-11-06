@@ -1,0 +1,1 @@
+export const WF_PREFIX = 'e2e_supervisor';
