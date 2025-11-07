@@ -9,7 +9,7 @@ export const printResults = createStep({
   }),
   inputSchema: z.object({
     response: z.string(),
-  }),
+  }).passthrough(),
   outputSchema: z.object({
     message: z.string(),
   }),

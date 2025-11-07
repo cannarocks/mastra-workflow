@@ -29,5 +29,10 @@ export const workflow = createWorkflow({
   //   };
   // })
   .then(readMessage)
+  .map(async ({ inputData }) => {
+    return {
+      response: inputData.response,
+    };
+  })
   .then(printResults)
   .commit();
