@@ -2,6 +2,7 @@ import { createStep, createWorkflow } from "@mastra/core";
 import z from "zod";
 import { readMessage } from "../steps/s1_read_message";
 import { ClassifyMessage } from "../agents/classificator";
+import { printResults } from "../steps/s2_print_results";
 
 export const workflow = createWorkflow({
   id: "e2e_supervisor_workflow",
@@ -28,4 +29,5 @@ export const workflow = createWorkflow({
   //   };
   // })
   .then(readMessage)
+  .then(printResults)
   .commit();

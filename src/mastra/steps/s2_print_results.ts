@@ -1,25 +1,25 @@
 import { createStep } from "@mastra/core";
-import { WF_PREFIX } from "../costants";
 import z from "zod";
 
-const inputSchema = z.object({
-  message: z.string().describe("The incoming message to be processed."),
-});
-
-export const readMessage = createStep({
-  id: `${WF_PREFIX}_print_results`,
+export const printResults = createStep({
+  id: `printResults`,
   description: "return the results of message classificator.",
-  inputSchema,
+  stateSchema: z.object({
+    workspaceId: z.string().describe("The ID of the workspace."),
+  }),
+  inputSchema: z.object({
+    response: z.string(),
+  }),
   outputSchema: z.object({
     message: z.string(),
   }),
   execute: async ({ inputData, state }) => {
-    console.log("Executing readMessage step...", inputData, state);
-    const { message } = inputData;
-    console.log("Reading message:", message);
+    console.log("Executing printResults step...", inputData, state);
+    const { response } = inputData;
+    console.log("Reading response:", response);
 
     return {
-      message,
+      message: response,
     };
   },
 });
