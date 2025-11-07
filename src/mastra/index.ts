@@ -3,11 +3,11 @@ import { LibSQLStore } from "@mastra/libsql";
 import { PinoLogger } from "@mastra/loggers";
 import { webAgent } from "./agents/web-agent";
 import { workflow } from "./workflows/e2e-workflow";
+import path from "path";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
-    // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
-    url: ":memory:",
+    url: `file:${path.resolve(__dirname, "../../.storage/storage.db")}`,
   }),
   // agents: { webAgent },
   logger: new PinoLogger({

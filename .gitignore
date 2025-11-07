@@ -4,5 +4,6 @@ dist
 .mastra
 .env.development
 .env
+.storage/
 *.db
 *.db-*
