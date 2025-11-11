@@ -1,17 +1,15 @@
-import { createStep, createWorkflow } from "@mastra/core";
+import { createWorkflow } from "@mastra/core";
 import z from "zod";
 import { readMessage } from "../steps/s1_read_message";
-import { ClassifyMessage } from "../agents/classificator";
-import { printResults } from "../steps/s2_print_results";
+import { handoffToPlanCrafter } from "../steps/s2a_plan_handoff";
+import { globalStateSchema } from "../steps/types";
+import { handoffToSupport } from "../steps/s2b_support_handoff";
 
-export const workflow = createWorkflow({
+export const mainWorkflow = createWorkflow({
   id: "e2e_supervisor_workflow",
   description:
     "An end-to-end workflow to process messages and perform web actions.",
-  stateSchema: z.object({
-    workspaceId: z.string().describe("The ID of the workspace."),
-    jwt: z.string().describe("JWT for authentication."),
-  }),
+  stateSchema: globalStateSchema,
   inputSchema: z.object({
     message: z.string(),
   }),
@@ -22,17 +20,15 @@ export const workflow = createWorkflow({
     details: z.string().describe("Details about the web action performed."),
   }),
 })
-  // .map(async ({ inputData }) => {
-  //   const { message: prompt } = inputData;
-  //   return {
-  //     text: prompt,
-  //   };
-  // })
   .then(readMessage)
-  .map(async ({ inputData }) => {
-    return {
-      response: inputData.response,
-    };
-  })
-  .then(printResults)
+  .branch([
+    [
+      async ({ inputData: { intent } }) => intent === "create_test_plan",
+      handoffToPlanCrafter,
+    ],
+    [
+      async ({ inputData: { intent } }) => intent === "support_request",
+      handoffToSupport,
+    ],
+  ])
   .commit();

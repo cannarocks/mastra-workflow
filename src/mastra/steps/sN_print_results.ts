@@ -1,12 +1,11 @@
 import { createStep } from "@mastra/core";
 import z from "zod";
+import { globalStateSchema } from "./types";
 
 export const printResults = createStep({
   id: `printResults`,
   description: "return the results of message classificator.",
-  stateSchema: z.object({
-    workspaceId: z.string().describe("The ID of the workspace."),
-  }),
+  stateSchema: globalStateSchema,
   inputSchema: z.object({
     response: z.string(),
   }).passthrough(),
