@@ -8,13 +8,14 @@ import {
   userRuntimeContextSchema,
 } from "./types";
 import { getUserContext } from "../utils";
+import { RuntimeContext } from "@mastra/core/runtime-context";
 
 const inputSchema = z.object({
   message: z.string().describe("The incoming message to be processed."),
 });
 
 export const readMessage = createStep({
-  id: `ReadAndClassifyMessage`,
+  id: `ReadMessage`,
   description: "Read the incoming message and extract relevant information.",
   stateSchema: globalStateSchema,
   inputSchema,
@@ -36,12 +37,20 @@ export const readMessage = createStep({
       const { workspace, user, token } = userContext;
       setState({
         ...state,
-        workspaceId: workspace.id,
-        workspaceName: workspace.company,
+        ...(workspace && {
+          workspaceId: workspace.id,
+          workspaceName: workspace.company,
+        }),
         userId: user.profile_id,
         userName: user.name,
         jwt: token,
       });
+
+      runtimeContext.set(
+        "workspaceName",
+        workspace.company || "Unknown Workspace"
+      );
+      runtimeContext.set("userName", user.name || "Unknown User");
 
       console.log("state updated:", state);
     }

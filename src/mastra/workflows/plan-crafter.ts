@@ -2,6 +2,7 @@ import { createWorkflow } from "@mastra/core";
 import z from "zod";
 import { classificationOutput, globalStateSchema } from "../steps/types";
 import { printResults } from "../steps/sN_print_results";
+import { getTemplatesStep } from "../steps/plan_crafter/s1_get_templates";
 
 export const planCrafterWf = createWorkflow({
   id: "create_activity_workflow",
@@ -16,6 +17,7 @@ export const planCrafterWf = createWorkflow({
     details: z.string().describe("Details about the web action performed."),
   }),
 })
+  .then(getTemplatesStep)
   .map(async ({ inputData }) => {
     return {
       response: inputData.response,
