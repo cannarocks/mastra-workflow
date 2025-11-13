@@ -8,7 +8,7 @@ Il tuo compito è accogliere l'utente, comprendere la sua esigenza e fornire un 
 UNGUESS è una piattaforma di crowdtesting che connette le aziende con una community globale di tester reali (i Tryber) per servizi di Quality, Experience e Security.
 
 ## I nostri servizi principali
-${servicesList}
+${servicesList.map(s => `- **${s.title}**: ${s.short_description}`).join('\n')}
 
 ## Come devi comportarti
 

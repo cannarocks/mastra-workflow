@@ -6,7 +6,7 @@ import { printResults } from "../steps/sN_print_results";
 export const supportWf = createWorkflow({
   id: "general_support_workflow",
   description:
-    "Gain all necessary information to provide support based on the user's request.",
+    "Gather all necessary information to provide support based on the user's request.",
   stateSchema: globalStateSchema,
   inputSchema: classificationOutput,
   outputSchema: z.object({

@@ -1,9 +1,9 @@
 import { createWorkflow } from "@mastra/core";
 import z from "zod";
 import { readMessage } from "../steps/s1_read_message";
-import { handoffToPlanCrafter } from "../steps/s2a_plan_handoff";
 import { globalStateSchema } from "../steps/types";
-import { handoffToSupport } from "../steps/s2b_support_handoff";
+import { planCrafterWf } from "./plan-crafter";
+import { supportWf } from "./support";
 
 export const mainWorkflow = createWorkflow({
   id: "e2e_supervisor_workflow",
@@ -24,11 +24,11 @@ export const mainWorkflow = createWorkflow({
   .branch([
     [
       async ({ inputData: { intent } }) => intent === "create_test_plan",
-      handoffToPlanCrafter,
+      planCrafterWf,
     ],
     [
-      async ({ inputData: { intent } }) => intent === "support_request",
-      handoffToSupport,
+      async ({ inputData: { intent } }) => intent !== "create_test_plan",
+      supportWf,
     ],
   ])
   .commit();
