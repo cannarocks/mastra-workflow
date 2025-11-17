@@ -27,8 +27,9 @@ export const mainWorkflow = createWorkflow({
       planCrafterWf,
     ],
     [
-      async ({ inputData: { intent } }) => intent !== "create_test_plan",
+      async ({ inputData: { intent } }) => intent === "support_request",
       supportWf,
     ],
+    [async ({ inputData: { intent } }) => intent === "out_of_scope", supportWf],
   ])
   .commit();

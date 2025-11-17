@@ -1,14 +1,8 @@
 import { createStep } from "@mastra/core";
 import z from "zod";
-import { ClassifyMessage } from "../agents/classificator";
-import {
-  AgUiContext,
-  classificationOutput,
-  globalStateSchema,
-  userRuntimeContextSchema,
-} from "./types";
+import { ClassifyMessage } from "../agents/classify-message";
 import { getUserContext } from "../utils";
-import { RuntimeContext } from "@mastra/core/runtime-context";
+import { AgUiContext, classificationOutput, globalStateSchema } from "./types";
 
 const inputSchema = z.object({
   message: z.string().describe("The incoming message to be processed."),
@@ -20,7 +14,14 @@ export const readMessage = createStep({
   stateSchema: globalStateSchema,
   inputSchema,
   outputSchema: classificationOutput,
-  execute: async ({ inputData, state, writer, runtimeContext, setState }) => {
+  execute: async ({
+    mastra,
+    inputData,
+    state,
+    writer,
+    runtimeContext,
+    setState,
+  }) => {
     console.log("Executing readMessage step...", inputData, state);
     const userContext = getUserContext(
       runtimeContext.get("ag-ui") as AgUiContext
@@ -51,15 +52,18 @@ export const readMessage = createStep({
         workspace.company || "Unknown Workspace"
       );
       runtimeContext.set("userName", user.name || "Unknown User");
-
-      console.log("state updated:", state);
     }
 
     const { message } = inputData;
     console.log("Reading message:", message);
 
-    const stream = await ClassifyMessage.stream(message, {
+    const classifyAgent = mastra.getAgent("ClassifyMessage");
+    const stream = await classifyAgent.stream(message, {
       output: classificationOutput,
+      memory: {
+        resource: "e2e-supervisor",
+        thread: "activity-planner",
+      },
     });
 
     let lastChunk: any = {};

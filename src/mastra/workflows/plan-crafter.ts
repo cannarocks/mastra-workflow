@@ -3,6 +3,9 @@ import z from "zod";
 import { classificationOutput, globalStateSchema } from "../steps/types";
 import { printResults } from "../steps/sN_print_results";
 import { getTemplatesStep } from "../steps/plan_crafter/s1_get_templates";
+import { chooseTemplateStep } from "../steps/plan_crafter/s4_choose_template";
+import { analyzeContextStep } from "../steps/plan_crafter/s2_analyze_context";
+import { aggregateStep } from "../steps/plan_crafter/s3_aggregate";
 
 export const planCrafterWf = createWorkflow({
   id: "create_activity_workflow",
@@ -17,7 +20,12 @@ export const planCrafterWf = createWorkflow({
     details: z.string().describe("Details about the web action performed."),
   }),
 })
-  .then(getTemplatesStep)
+  .parallel([getTemplatesStep, analyzeContextStep])
+  .then(aggregateStep)
+  .dountil(
+    chooseTemplateStep,
+    async ({ inputData }) => inputData.templateFound === true
+  )
   .map(async ({ inputData }) => {
     return {
       response: inputData.response,

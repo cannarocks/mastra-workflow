@@ -1,8 +1,8 @@
 import { createTool } from "@mastra/core";
 import z from "zod";
-import { cpReqTemplateSchema } from "./zodSchema";
-import { CpReqTemplate, StrapiTemplate } from "./filtered";
+import { StrapiTemplate } from "./filtered";
 import { operations } from "./schema";
+import { cpReqTemplateSchema } from "./zodSchema";
 
 type ApiResponse =
   operations["get-workspaces-templates"]["responses"]["200"]["content"]["application/json"];
@@ -66,7 +66,7 @@ const getWorkspacesTemplates = async (workspaceId: number, jwt: string) => {
 };
 
 export const getUserTemplates = createTool({
-  id: "user-templates",
+  id: "get-available-templates",
   description: "Retrieve all available templates for a specific workspace.",
   inputSchema: z.object({
     workspaceId: z

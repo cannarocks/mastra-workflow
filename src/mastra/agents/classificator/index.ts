@@ -3,6 +3,7 @@ import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
 import { instructions } from "./prompt";
 
+// @deprecated use ClassifyMessage from src/mastra/agents/index.ts
 export const ClassifyMessage = new Agent({
   name: "Message Classificator",
   instructions: async ({ runtimeContext }) => {

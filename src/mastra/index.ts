@@ -3,20 +3,28 @@ import { Mastra } from "@mastra/core/mastra";
 import { LibSQLStore } from "@mastra/libsql";
 import { PinoLogger } from "@mastra/loggers";
 import path from "path";
+import { famousPersonAgent } from "./agents/game/famous-person";
+import { gameAgent } from "./agents/game/game-agent";
+import { TemplateSelectorAgent } from "./agents/planCrafter/template-selector";
 import { WorkflowAgent } from "./agents/workflow";
+import { E2ERuntimeContext } from "./steps/types";
 import { mainWorkflow } from "./workflows/e2e-workflow";
+import { headsUpWorkflow } from "./workflows/game-test";
 import { planCrafterWf } from "./workflows/plan-crafter";
 import { supportWf } from "./workflows/support";
-
-type RuntimeContext = {
-  "user-id": string;
-};
+import { FirstQuestionDesigner } from "./agents/planCrafter/FirstQuestionDesigner";
+import { ClassifyMessage } from "./agents/classify-message";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
     url: `file:${path.resolve(__dirname, "../../.storage/storage.db")}`,
   }),
-  agents: { WorkflowAgent },
+  agents: {
+    WorkflowAgent,
+    TemplateSelectorAgent,
+    FirstQuestionDesigner,
+    ClassifyMessage,
+  },
   logger: new PinoLogger({
     name: "Mastra",
     level: "info",
@@ -34,14 +42,11 @@ export const mastra = new Mastra({
       allowHeaders: ["*"],
     },
     apiRoutes: [
-      registerCopilotKit<RuntimeContext>({
+      registerCopilotKit<E2ERuntimeContext>({
         path: "/copilotkit",
         resourceId: "WorkflowAgent",
         setContext: (c, runtimeContext) => {
-          runtimeContext.set(
-            "user-id",
-            c.req.header("X-User-ID") || "anonymous"
-          );
+          runtimeContext.set("availableTemplates", []);
         },
       }),
     ],

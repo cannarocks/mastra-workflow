@@ -8,7 +8,7 @@ export const pageExtractTool = createTool({
   inputSchema: z.object({
     url: z.string().optional().describe('URL to navigate to (optional if already on a page)'),
     instruction: z.string().describe('What to extract (e.g., "extract all product prices")'),
-    schema: z.record(z.any()).optional().describe('Zod schema definition for data extraction'),
+    // schema: z.record(z.any()).optional().describe('Zod schema definition for data extraction'),
     useTextExtract: z
       .boolean()
       .optional()
@@ -24,7 +24,8 @@ export const pageExtractTool = createTool({
     return await performWebExtraction(
       context.url,
       context.instruction,
-      context.schema || defaultSchema,
+      // context.schema || defaultSchema,
+      defaultSchema,
       context.useTextExtract,
     );
   },

@@ -1,8 +1,9 @@
 import z from "zod";
+import { cpReqTemplateSchema } from "../tools/api/zodSchema";
+import { CpReqTemplate } from "../tools/api/filtered";
 
 export const classificationOutput = z.object({
-  response: z.string(),
-  intent: z.enum(["support_request", "create_test_plan"]),
+  intent: z.enum(["support_request", "create_test_plan", "out_of_scope"]),
   topic: z.string(),
   summary: z.string(),
 });
@@ -15,6 +16,28 @@ export const globalStateSchema = z.object({
   jwt: z.string().describe("JWT for authentication."),
   planId: z.number().optional().describe("The ID of the test plan."),
   templateId: z.number().optional().describe("The ID of the template."),
+  availableTemplates: z
+    .array(cpReqTemplateSchema)
+    .describe("Available templates for current workspace.")
+    .optional(),
+});
+
+export const templateSelectionSchema = z.object({
+  selected_template_id: z.string().optional(),
+  confidence_score: z.number().min(0).max(10).default(0),
+  templateFound: z.boolean().default(false),
+  selection_rationale: z.string().optional(),
+  user_context_summary: z
+    .object({
+      business_objective: z.string(),
+      touchpoint_url: z.string(),
+      touchpoint_analysis: z.string(),
+      key_requirements: z.array(z.string()),
+      constraints: z.array(z.string()),
+    })
+    .optional(),
+  iterations_used: z.number().default(0),
+  response: z.string(),
 });
 
 /**
@@ -53,5 +76,9 @@ export interface AgUiContext {
     description: string;
     value: string;
   }[];
-  // add other properties as needed
 }
+
+export type E2ERuntimeContext = {
+  availableTemplates: Array<CpReqTemplate>;
+  "ag-ui": AgUiContext;
+};
