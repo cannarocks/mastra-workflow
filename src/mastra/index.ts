@@ -14,6 +14,7 @@ import { planCrafterWf } from "./workflows/plan-crafter";
 import { supportWf } from "./workflows/support";
 import { FirstQuestionDesigner } from "./agents/planCrafter/FirstQuestionDesigner";
 import { ClassifyMessage } from "./agents/classify-message";
+import { chatRoute, workflowRoute } from "@mastra/ai-sdk";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
@@ -30,9 +31,7 @@ export const mastra = new Mastra({
     level: "info",
   }),
   observability: {
-    default: {
-      enabled: true,
-    },
+    default: { enabled: true },
   },
   workflows: { mainWorkflow, planCrafterWf, supportWf },
   server: {
@@ -48,6 +47,10 @@ export const mastra = new Mastra({
         setContext: (c, runtimeContext) => {
           runtimeContext.set("availableTemplates", []);
         },
+      }),
+      workflowRoute({
+        path: "/workflow",
+        workflow: "mainWorkflow",
       }),
     ],
   },

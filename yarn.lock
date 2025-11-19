@@ -1929,10 +1929,10 @@
   dependencies:
     "@lukeed/csprng" "^1.1.0"
 
-"@mastra/ai-sdk@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@mastra/ai-sdk/-/ai-sdk-0.2.6.tgz#f36797fcb8f7ab9d5475063149cf29801beed2c5"
-  integrity sha512-zvPopeT8wpkipjV84ucXLR5o5cBioZQEyqGpEdzal8UlQQ8mzcU8Vk7GD4FXG/FdFyDN/Ers9EBGPu+wVab3Rg==
+"@mastra/ai-sdk@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@mastra/ai-sdk/-/ai-sdk-0.2.7.tgz#d17145081a19ca05e3d058868ee8a261689b8c71"
+  integrity sha512-GOMaKWpf6IcG9gwfplD+rDPO2WftUHs+jdElS0dGTmkZJvVjt2h4NHNmIfp3nvl6b5KKJRNTiFjewN2btT0HRQ==
   dependencies:
     ai "^5.0.60"
 
@@ -2050,14 +2050,14 @@
     zod-to-json-schema "^3.24.6"
 
 "@mastra/deployer@^0.24.0":
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/@mastra/deployer/-/deployer-0.24.0.tgz#158a4895e4043e8ae9b83d58e1d54e1696cb6b02"
-  integrity sha512-nC5thq5zuPTtR59LKN61iFq+MFxiFJRDE2gWP6VbaMK7cYV2HAJriX1CRPpxqHNBGpS68V9Vk943YaMOcxIOXA==
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/@mastra/deployer/-/deployer-0.24.1.tgz#4a421b7454fafd706795cb1707cf158ad14c7373"
+  integrity sha512-Uxekoeij6TAxrPya7WxUqQdmnyiVk2JRhkfvmvsP9caKzkiHFcZC0rTG/rAUKW7Si/WNWXKeBhoqNnnVRYxB1w==
   dependencies:
     "@babel/core" "^7.28.4"
     "@babel/helper-module-imports" "^7.27.1"
     "@babel/preset-typescript" "^7.27.1"
-    "@mastra/server" "^0.24.0"
+    "@mastra/server" "^0.24.1"
     "@neon-rs/load" "^0.1.82"
     "@optimize-lodash/rollup-plugin" "^5.0.2"
     "@rollup/plugin-alias" "5.1.1"
@@ -2152,10 +2152,10 @@
     zod-from-json-schema-v3 "npm:zod-from-json-schema@^0.0.5"
     zod-to-json-schema "^3.24.6"
 
-"@mastra/server@^0.24.0":
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/@mastra/server/-/server-0.24.0.tgz#3b8a137485e1cd69760ce4ae51c3bdf812eeedb0"
-  integrity sha512-/p26002D8Lpg4bztazSJZxVtoAmi7cwHLkhgEdFf352ePxn44JOLLdBq/3Jk2EJ0xjfPwsDs8ByqpKBOOrybYw==
+"@mastra/server@^0.24.1":
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/@mastra/server/-/server-0.24.1.tgz#a0046e0ffe39fc2fbadda606df527ae28d723ceb"
+  integrity sha512-O/62kW765G/csJ27dXd8epr1Bw7pcatlYhZfGY3hMoLWJvOaIHeHWDRBwbtXm6ixDZmfT65h8MiPrr7G7Gn85w==
 
 "@modelcontextprotocol/sdk@^1.17.2":
   version "1.21.0"

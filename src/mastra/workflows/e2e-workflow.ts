@@ -1,4 +1,4 @@
-import { createWorkflow } from "@mastra/core";
+import { createWorkflow } from '@mastra/core/workflows';
 import z from "zod";
 import { readMessage } from "../steps/s1_read_message";
 import { globalStateSchema } from "../steps/types";

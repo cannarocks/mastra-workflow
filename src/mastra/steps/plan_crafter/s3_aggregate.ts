@@ -1,4 +1,4 @@
-import { createStep } from "@mastra/core";
+import { createStep } from '@mastra/core/workflows';
 import z from "zod";
 import { TemplateSelectorAgent } from "../../agents/planCrafter/template-selector";
 import {

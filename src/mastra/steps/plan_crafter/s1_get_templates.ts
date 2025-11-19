@@ -1,4 +1,4 @@
-import { createStep } from "@mastra/core";
+import { createStep } from '@mastra/core/workflows';
 import { getUserTemplates } from "../../tools/api/getUserTemplates";
 import {
   classificationOutput,
@@ -15,7 +15,6 @@ export const getTemplatesStep = createStep({
   execute: async ({
     inputData,
     state,
-    writer,
     runtimeContext,
     suspend,
     resumeData,
@@ -31,12 +30,12 @@ export const getTemplatesStep = createStep({
       });
     }
 
-    writer.write({
-      type: "reasoning",
-      step: "retrieving available templates",
-      message:
-        "Fetching available templates from the UNGUESS backend service...",
-    });
+    // writer.write({
+    //   type: "reasoning",
+    //   step: "retrieving available templates",
+    //   message:
+    //     "Fetching available templates from the UNGUESS backend service...",
+    // });
 
     const response = await getUserTemplates.execute({
       context: {
@@ -46,14 +45,14 @@ export const getTemplatesStep = createStep({
       runtimeContext,
     });
 
-    if (!response || response.length === 0) {
-      writer.write({
-        type: "error",
-        step: "retrieving available templates",
-        message:
-          "No templates were found for the specified workspace. Please ensure that templates are available.",
-      });
-    }
+    // if (!response || response.length === 0) {
+    //   writer.write({
+    //     type: "error",
+    //     step: "retrieving available templates",
+    //     message:
+    //       "No templates were found for the specified workspace. Please ensure that templates are available.",
+    //   });
+    // }
 
     setState({
       ...state,

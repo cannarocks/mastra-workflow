@@ -42,6 +42,7 @@ Output
 `;
 
 export const FirstQuestionDesigner = new Agent({
+  id: "first_question_designer_agent",
   name: "FirstQuestionDesigner",
   description:
     "Agent che formula la prima domanda per raccogliere informazioni utili a creare un'attività di test UNGUESS.",

@@ -1,4 +1,4 @@
-import { createStep } from "@mastra/core";
+import { createStep } from '@mastra/core/workflows';
 import z from "zod";
 import { FirstQuestionDesigner } from "../../agents/planCrafter/FirstQuestionDesigner";
 import { classificationOutput, globalStateSchema } from "../types";

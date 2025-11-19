@@ -1,4 +1,4 @@
-import { createStep } from "@mastra/core";
+import { createStep } from '@mastra/core/workflows';
 import z from "zod";
 import { ClassifyMessage } from "../agents/classify-message";
 import { getUserContext } from "../utils";
@@ -18,7 +18,6 @@ export const readMessage = createStep({
     mastra,
     inputData,
     state,
-    writer,
     runtimeContext,
     setState,
   }) => {
@@ -27,12 +26,12 @@ export const readMessage = createStep({
       runtimeContext.get("ag-ui") as AgUiContext
     );
 
-    writer.write({
-      type: "reasoning",
-      step: "message classification",
-      message:
-        "User asked something, gathering context information to extracting topic, intent and summary...",
-    });
+    // writer.write({
+    //   type: "reasoning",
+    //   step: "message classification",
+    //   message:
+    //     "User asked something, gathering context information to extracting topic, intent and summary...",
+    // });
 
     if (userContext) {
       const { workspace, user, token } = userContext;
@@ -53,6 +52,8 @@ export const readMessage = createStep({
       );
       runtimeContext.set("userName", user.name || "Unknown User");
     }
+
+    console.log("User context:", userContext, inputData);
 
     const { message } = inputData;
     console.log("Reading message:", message);

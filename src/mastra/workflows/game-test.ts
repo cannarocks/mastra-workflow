@@ -1,4 +1,4 @@
-  import { createStep, createWorkflow } from "@mastra/core";
+  import { createStep, createWorkflow } from '@mastra/core/workflows';
 import z from "zod";
 
 const startStep = createStep({

@@ -1,4 +1,4 @@
-import { createWorkflow } from "@mastra/core";
+import { createWorkflow } from '@mastra/core/workflows';
 import z from "zod";
 import { classificationOutput, globalStateSchema } from "../steps/types";
 import { printResults } from "../steps/sN_print_results";
@@ -18,7 +18,7 @@ export const supportWf = createWorkflow({
 })
   .map(async ({ inputData }) => {
     return {
-      response: inputData.response,
+      response: inputData.summary,
     };
   })
   .then(printResults)

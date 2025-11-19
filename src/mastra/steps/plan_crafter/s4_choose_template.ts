@@ -1,7 +1,6 @@
-import { createStep } from "@mastra/core";
 import { RuntimeContext } from "@mastra/core/runtime-context";
+import { createStep } from "@mastra/core/workflows";
 import z from "zod";
-import { TemplateSelectorAgent } from "../../agents/planCrafter/template-selector";
 import {
   classificationOutput,
   E2ERuntimeContext,
@@ -19,22 +18,14 @@ export const chooseTemplateStep = createStep({
     "Gather all the necessary information to choose the best template and start composing the test plan.",
   stateSchema: globalStateSchema,
   inputSchema: analyzeContextOutput.merge(templateSelectionSchema),
-  outputSchema: classificationOutput.merge(templateSelectionSchema),
+  outputSchema: analyzeContextOutput.merge(templateSelectionSchema),
   resumeSchema: z.object({
     userMessage: z.string(),
   }),
   suspendSchema: z.object({
     suspendResponse: z.string(),
   }),
-  execute: async ({
-    inputData,
-    state,
-    writer,
-    runtimeContext,
-    suspend,
-    resumeData,
-    mastra,
-  }) => {
+  execute: async ({ inputData, state, suspend, resumeData, mastra }) => {
     console.log("Executing chooseTemplate step...", inputData, state);
 
     const { iterations_used, first_question } = inputData;
@@ -62,19 +53,23 @@ export const chooseTemplateStep = createStep({
         {
           role: "user",
           content: `The user said: "${userMessage}"
-        Please respond appropriately. Check the available templates and select the best one for the user's needs or ask for more information if necessary.`,
+        Please respond appropriately. Check the available templates and select the best one for the user's needs or send a request to user with an additional question if necessary.`,
         },
       ],
       {
         runtimeContext: rtContext,
-        output: templateSelectionSchema.omit({ iterations_used: true }),
+        output: templateSelectionSchema.omit({ iterations_used: true, templateFound: true }),
       }
     );
+
+    console.debug("🚀 ~ response templator:", response);
 
     let lastChunk: any = {};
     for await (const chunk of response.objectStream) {
       lastChunk = chunk;
     }
+    console.debug("🚀 ~ lastChunk:", lastChunk);
+    console.debug("🚀 ~ inputData:", inputData);
 
     return {
       ...inputData,

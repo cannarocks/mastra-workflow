@@ -23,17 +23,5 @@ export const TemplateSelectorAgent = new Agent({
   },
   model: openai("o4-mini"),
   tools: { pageActTool, pageObserveTool, pageExtractTool, pageNavigateTool },
-  memory: new Memory({
-    vector: new LibSQLVector({
-      connectionUrl: `file:${path.resolve(__dirname, "../../.storage/storage_workflow.db")}`,
-    }),
-    embedder: openai.embedding("text-embedding-3-small"),
-    options: {
-      lastMessages: 15,
-      semanticRecall: {
-        topK: 10,
-        messageRange: 5,
-      },
-    },
-  }),
+  memory: new Memory(),
 });

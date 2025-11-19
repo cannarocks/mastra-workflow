@@ -4,6 +4,7 @@ import { Memory } from "@mastra/memory";
 import { LibSQLVector } from "@mastra/libsql";
 
 export const famousPersonAgent = new Agent({
+  id: "famous_person_agent",
   name: "Famous Person Generator",
   instructions: `You are a famous person generator for a "Heads Up" guessing game.
 

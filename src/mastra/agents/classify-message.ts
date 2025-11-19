@@ -58,10 +58,14 @@ Restituisci solo questo JSON:
 `;
 
 export const ClassifyMessage = new Agent({
+  id: "classify_message_agent",
   name: "Message Classificator",
   instructions: async ({ runtimeContext }) => {
     const workspacename = runtimeContext.get("workspaceName");
     const userName = runtimeContext.get("userName");
+    console.debug("🚀 ~ requestContext:", runtimeContext);
+    console.debug("🚀 ~ workspacename:", workspacename);
+    console.debug("🚀 ~ userName:", userName);
 
     return `${instructions} \n\n you know that you are talking with ${userName} from the workspace ${workspacename} and today is ${Date.now().toLocaleString()}. Use this information to better contextualize your answers.`;
   },
