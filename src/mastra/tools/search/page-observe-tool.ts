@@ -6,7 +6,7 @@ export const pageObserveTool = createTool({
   id: 'web-observe',
   description: 'Observe elements on a webpage using Stagehand to plan actions',
   inputSchema: z.object({
-    url: z.string().optional().describe('URL to navigate to (optional if already on a page)'),
+    url: z.string().describe('URL to navigate to (optional if already on a page)'),
     instruction: z.string().describe('What to observe (e.g., "find the sign in button")'),
   }),
   outputSchema: z.array(z.any()).describe('Array of observable actions'),

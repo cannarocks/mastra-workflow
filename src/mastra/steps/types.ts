@@ -37,7 +37,6 @@ export const templateSelectionSchema = z.object({
     })
     .optional(),
   iterations_used: z.number().default(0),
-  response: z.string(),
 });
 
 /**

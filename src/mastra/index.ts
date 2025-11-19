@@ -43,7 +43,7 @@ export const mastra = new Mastra({
     apiRoutes: [
       registerCopilotKit<E2ERuntimeContext>({
         path: "/copilotkit",
-        resourceId: "WorkflowAgent",
+        resourceId: "TemplateSelectorAgent",
         setContext: (c, runtimeContext) => {
           runtimeContext.set("availableTemplates", []);
         },

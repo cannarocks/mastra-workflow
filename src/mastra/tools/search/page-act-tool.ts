@@ -6,7 +6,7 @@ export const pageActTool = createTool({
   id: 'web-act',
   description: 'Take an action on a webpage using Stagehand',
   inputSchema: z.object({
-    url: z.string().optional().describe('URL to navigate to (optional if already on a page)'),
+    url: z.string().describe('URL to navigate to (optional if already on a page)'),
     action: z.string().describe('Action to perform (e.g., "click sign in button", "type hello in search field")'),
   }),
   outputSchema: z.object({

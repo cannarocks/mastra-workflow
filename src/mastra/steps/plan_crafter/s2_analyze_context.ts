@@ -5,7 +5,7 @@ import { classificationOutput, globalStateSchema } from "../types";
 
 export const analyzeContextOutput = classificationOutput.merge(
   z.object({
-    first_question: z.string(),
+    next_question: z.string(),
   })
 );
 
@@ -36,7 +36,7 @@ export const analyzeContextStep = createStep({
       {
         runtimeContext,
         output: z.object({
-          first_question: z.string(),
+          next_question: z.string(),
         }),
       }
     );
@@ -46,6 +46,6 @@ export const analyzeContextStep = createStep({
       lastChunk = chunk;
     }
 
-    return { ...inputData, first_question: lastChunk.first_question };
+    return { ...inputData, next_question: lastChunk.next_question };
   },
 });

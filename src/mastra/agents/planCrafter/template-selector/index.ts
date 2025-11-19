@@ -7,21 +7,41 @@ import { pageObserveTool } from "../../../tools/search/page-observe-tool";
 import { pageExtractTool } from "../../../tools/search/page-extract-tool";
 import { pageNavigateTool } from "../../../tools/search/page-navigate-tool";
 import { LibSQLVector } from "@mastra/libsql";
-import path from "path";
+import { getUserTemplates } from "../../../tools/api/getUserTemplates";
 
 export const TemplateSelectorAgent = new Agent({
   id: "TemplateSelectorAgent",
   name: "Template Selector Agent",
   instructions: ({ runtimeContext, ...other }) => {
-    const templates = runtimeContext.get("availableTemplates") || [];
+    const templates = runtimeContext.get("availableTemplates") || {};
+    console.debug("🚀 ~ runtimeContext:", runtimeContext);
+    console.debug("🚀 ~ templates:", templates);
 
     return `
     ${instructions} 
     
-    Available Templates: ${JSON.stringify(templates, null, 2)}
+    ${Object.keys(templates).length > 0 ? `Available Templates: ${JSON.stringify(templates, null, 2)}` : ""}
     `;
   },
-  model: openai("o4-mini"),
-  tools: { pageActTool, pageObserveTool, pageExtractTool, pageNavigateTool },
-  memory: new Memory(),
+  model: openai("gpt-5"),
+  tools: {
+    getUserTemplates,
+    pageActTool,
+    pageObserveTool,
+    pageExtractTool,
+    pageNavigateTool,
+  },
+  memory: new Memory({
+    vector: new LibSQLVector({
+      connectionUrl: `file:../templateselector-agent.db`,
+    }),
+    embedder: openai.embedding("text-embedding-3-small"),
+    options: {
+      lastMessages: 5,
+      semanticRecall: {
+        topK: 10,
+        messageRange: 1,
+      },
+    },
+  }),
 });

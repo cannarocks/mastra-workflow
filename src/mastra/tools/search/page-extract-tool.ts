@@ -6,12 +6,13 @@ export const pageExtractTool = createTool({
   id: 'web-extract',
   description: 'Extract data from a webpage using Stagehand',
   inputSchema: z.object({
-    url: z.string().optional().describe('URL to navigate to (optional if already on a page)'),
+    url: z.string().describe('URL to navigate to (optional if already on a page)'),
     instruction: z.string().describe('What to extract (e.g., "extract all product prices")'),
     // schema: z.record(z.any()).optional().describe('Zod schema definition for data extraction'),
     useTextExtract: z
       .boolean()
       .optional()
+      .default(false)
       .describe('Set true for larger-scale extractions, false for small extractions'),
   }),
   outputSchema: z.any().describe('Extracted data according to schema'),
