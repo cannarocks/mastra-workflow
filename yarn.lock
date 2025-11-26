@@ -150,6 +150,15 @@
     "@ai-sdk/provider-utils" "3.0.12"
     "@vercel/oidc" "3.0.3"
 
+"@ai-sdk/gateway@2.0.15":
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/gateway/-/gateway-2.0.15.tgz#16db3b2fa8305a6b639d056ff4269127949cb9d5"
+  integrity sha512-i1YVKzC1dg9LGvt+GthhD7NlRhz9J4+ZRj3KELU14IZ/MHPsOBiFeEoCCIDLR+3tqT8/+5nIsK3eZ7DFRfMfdw==
+  dependencies:
+    "@ai-sdk/provider" "2.0.0"
+    "@ai-sdk/provider-utils" "3.0.17"
+    "@vercel/oidc" "3.0.5"
+
 "@ai-sdk/gateway@2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@ai-sdk/gateway/-/gateway-2.0.7.tgz#e3b77ef01658b47a19956313fc2a36b9e5a951f3"
@@ -167,13 +176,13 @@
     "@ai-sdk/provider" "2.0.0"
     "@ai-sdk/provider-utils" "3.0.10"
 
-"@ai-sdk/google-v5@npm:@ai-sdk/google@2.0.23":
-  version "2.0.23"
-  resolved "https://registry.yarnpkg.com/@ai-sdk/google/-/google-2.0.23.tgz#f09b23eb91e6af9251a9d8c0dfbedeef7012391b"
-  integrity sha512-VbCnKR+6aWUVLkAiSW5gUEtST7KueEmlt+d6qwDikxlLnFG9pzy59je8MiDVeM5G2tuSXbvZQF78PGIfXDBmow==
+"@ai-sdk/google-v5@npm:@ai-sdk/google@2.0.40":
+  version "2.0.40"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/google/-/google-2.0.40.tgz#95e94f5ac7e532f8ec7bd39859ca1b64e36abc66"
+  integrity sha512-E7MTVE6vhWXQJzXQDvojwA9t5xlhWpxttCH3R/kUyiE6y0tT8Ay2dmZLO+bLpFBQ5qrvBMrjKWpDVQMoo6TJZg==
   dependencies:
     "@ai-sdk/provider" "2.0.0"
-    "@ai-sdk/provider-utils" "3.0.12"
+    "@ai-sdk/provider-utils" "3.0.17"
 
 "@ai-sdk/google@^1.2.6":
   version "1.2.22"
@@ -190,6 +199,14 @@
   dependencies:
     "@ai-sdk/provider" "1.1.3"
     "@ai-sdk/provider-utils" "2.2.8"
+
+"@ai-sdk/mistral-v5@npm:@ai-sdk/mistral@2.0.23":
+  version "2.0.23"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/mistral/-/mistral-2.0.23.tgz#97f067d7076f6e2fd3af3998ca85845c968f2aee"
+  integrity sha512-np2bTlL5ZDi7iAOPCF5SZ5xKqls059iOvsigbgd9VNUCIrWSf6GYOaPvoWEgJ650TUOZitTfMo9MiEhLgutPfA==
+  dependencies:
+    "@ai-sdk/provider" "2.0.0"
+    "@ai-sdk/provider-utils" "3.0.16"
 
 "@ai-sdk/mistral@^1.2.7":
   version "1.2.8"
@@ -328,6 +345,15 @@
   version "3.0.16"
   resolved "https://registry.yarnpkg.com/@ai-sdk/provider-utils/-/provider-utils-3.0.16.tgz#17b7170bf51a7a690bf0186490ce29a8ce50a961"
   integrity sha512-lsWQY9aDXHitw7C1QRYIbVGmgwyT98TF3MfM8alNIXKpdJdi+W782Rzd9f1RyOfgRmZ08gJ2EYNDhWNK7RqpEA==
+  dependencies:
+    "@ai-sdk/provider" "2.0.0"
+    "@standard-schema/spec" "^1.0.0"
+    eventsource-parser "^3.0.6"
+
+"@ai-sdk/provider-utils@3.0.17", "@ai-sdk/provider-utils@^3.0.17":
+  version "3.0.17"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/provider-utils/-/provider-utils-3.0.17.tgz#2f3d0be398d3f165efe8dd252b63aea6ac3896d1"
+  integrity sha512-TR3Gs4I3Tym4Ll+EPdzRdvo/rc8Js6c4nVhFLuvGLX/Y4V9ZcQMa/HTiYsHEgmYrf1zVi6Q145UEZUfleOwOjw==
   dependencies:
     "@ai-sdk/provider" "2.0.0"
     "@standard-schema/spec" "^1.0.0"
@@ -1929,10 +1955,10 @@
   dependencies:
     "@lukeed/csprng" "^1.1.0"
 
-"@mastra/ai-sdk@^0.2.7":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@mastra/ai-sdk/-/ai-sdk-0.2.7.tgz#d17145081a19ca05e3d058868ee8a261689b8c71"
-  integrity sha512-GOMaKWpf6IcG9gwfplD+rDPO2WftUHs+jdElS0dGTmkZJvVjt2h4NHNmIfp3nvl6b5KKJRNTiFjewN2btT0HRQ==
+"@mastra/ai-sdk@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@mastra/ai-sdk/-/ai-sdk-0.3.1.tgz#1bb04e416847d8b63a48c18c98f47dd38d32bc31"
+  integrity sha512-kCRIl7s5QLlCwaVWQFe/oNjCbmOeyyQFYJD5qVk5zBj0CRrdUzZr/uIOeEJ6MHf47iYuXAc2pxU5NmlJLvQbYQ==
   dependencies:
     ai "^5.0.60"
 
@@ -1998,14 +2024,15 @@
     xstate "^5.20.1"
     zod-to-json-schema "^3.24.6"
 
-"@mastra/core@0.24.0":
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/@mastra/core/-/core-0.24.0.tgz#bd753e3a840ff2753dcf2884787b2ffa7adfbc21"
-  integrity sha512-lurtcdObDJE1Hb6p6Byu67i2mnNFVSE1ylVnbtcAqSXmfW7rRNx61B+inJmVSMZOu2gVtfoH3Q0tMrjBsJwm6g==
+"@mastra/core@0.24.5":
+  version "0.24.5"
+  resolved "https://registry.yarnpkg.com/@mastra/core/-/core-0.24.5.tgz#e7c323d8a13ca1d98bcb1a660cb6a47ec0b2230f"
+  integrity sha512-qeME8S7bgc1dbgx5lUcTwt0EOHLu6YBUOHmhRstQFWGRtq3lxMexJ1RPmhZLiOcGPR6/8D8mWDnv/dMOKA8E8w==
   dependencies:
     "@a2a-js/sdk" "~0.2.4"
     "@ai-sdk/anthropic-v5" "npm:@ai-sdk/anthropic@2.0.33"
-    "@ai-sdk/google-v5" "npm:@ai-sdk/google@2.0.23"
+    "@ai-sdk/google-v5" "npm:@ai-sdk/google@2.0.40"
+    "@ai-sdk/mistral-v5" "npm:@ai-sdk/mistral@2.0.23"
     "@ai-sdk/openai-compatible-v5" "npm:@ai-sdk/openai-compatible@1.0.22"
     "@ai-sdk/openai-v5" "npm:@ai-sdk/openai@2.0.53"
     "@ai-sdk/provider" "^1.1.3"
@@ -2083,6 +2110,17 @@
     rollup-plugin-node-externals "^8.0.1"
     tinyglobby "^0.2.15"
     typescript-paths "^1.5.1"
+
+"@mastra/evals@^0.14.4":
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/@mastra/evals/-/evals-0.14.4.tgz#453da7eaaf00f8410452fb2b352074e389a12d76"
+  integrity sha512-vDV1vvrwqr4enxpg5eTw09UQ1AKAwA/UTh8xEjzNvhYb6XYrf5cjQrEIM5k195Z+q0TcR64//f+bZri6IGX5LQ==
+  dependencies:
+    compromise "^14.14.4"
+    fs-extra "^11.3.2"
+    keyword-extractor "^0.0.28"
+    sentiment "^5.0.2"
+    string-similarity "^4.0.4"
 
 "@mastra/libsql@0.16.2":
   version "0.16.2"
@@ -4039,6 +4077,11 @@
   resolved "https://registry.yarnpkg.com/@vercel/oidc/-/oidc-3.0.3.tgz#82c2b6dd4d5c3b37dcb1189718cdeb9db402d052"
   integrity sha512-yNEQvPcVrK9sIe637+I0jD6leluPxzwJKx/Haw6F4H77CdDsszUn5V3o96LPziXkSNE2B83+Z3mjqGKBK/R6Gg==
 
+"@vercel/oidc@3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@vercel/oidc/-/oidc-3.0.5.tgz#bd8db7ee777255c686443413492db4d98ef49657"
+  integrity sha512-fnYhv671l+eTTp48gB4zEsTW/YtRgRPnkI2nT7x6qw5rkI1Lq2hTmQIpHPgyThI0znLK+vX2n9XxKdXZ7BUbbw==
+
 "@webcontainer/env@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@webcontainer/env/-/env-1.1.1.tgz#23021b2bb24befeeef53dba8996d1886b7016515"
@@ -4183,6 +4226,16 @@ ai@^4.3.19, ai@^4.3.9:
     "@ai-sdk/ui-utils" "1.2.11"
     "@opentelemetry/api" "1.9.0"
     jsondiffpatch "0.6.0"
+
+ai@^5.0.101:
+  version "5.0.101"
+  resolved "https://registry.yarnpkg.com/ai/-/ai-5.0.101.tgz#aea90e8503192fb1fc75d94c6440e203d5bc5911"
+  integrity sha512-/P4fgs2PGYTBaZi192YkPikOudsl9vccA65F7J7LvoNTOoP5kh1yAsJPsKAy6FXU32bAngai7ft1UDyC3u7z5g==
+  dependencies:
+    "@ai-sdk/gateway" "2.0.15"
+    "@ai-sdk/provider" "2.0.0"
+    "@ai-sdk/provider-utils" "3.0.17"
+    "@opentelemetry/api" "1.9.0"
 
 ai@^5.0.60:
   version "5.0.89"
@@ -4510,6 +4563,15 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
+compromise@^14.14.4:
+  version "14.14.4"
+  resolved "https://registry.yarnpkg.com/compromise/-/compromise-14.14.4.tgz#30c4fc934723a60bf65c9dcb4b7312b64a6cb027"
+  integrity sha512-QdbJwronwxeqb7a5KFK/+Y5YieZ4PE1f7ai0vU58Pp4jih+soDCBMuKVbhDEPQ+6+vI3vSiG4UAAjTAXLJw1Qw==
+  dependencies:
+    efrt "2.7.0"
+    grad-school "0.0.5"
+    suffix-thumb "5.0.2"
+
 confbox@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/confbox/-/confbox-0.1.8.tgz#820d73d3b3c82d9bd910652c5d4d599ef8ff8b06"
@@ -4763,6 +4825,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
+
+efrt@2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/efrt/-/efrt-2.7.0.tgz#8b021e69f75cfeed3f81ee058aa0c78265793324"
+  integrity sha512-/RInbCy1d4P6Zdfa+TMVsf/ufZVotat5hCw3QXmWtjU+3pFEOvOQ7ibo3aIxyCJw2leIeAMjmPj+1SLJiCpdrQ==
 
 electron-to-chromium@^1.5.238:
   version "1.5.244"
@@ -5432,6 +5499,11 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
+grad-school@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/grad-school/-/grad-school-0.0.5.tgz#9e7b2084f3e137965c19b63ef0dfe49867194f43"
+  integrity sha512-rXunEHF9M9EkMydTBux7+IryYXEZinRk6g8OBOGDBzo/qWJjhTxy86i5q7lQYpCLHN8Sqv1XX3OIOc7ka2gtvQ==
+
 graphql-query-complexity@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.12.0.tgz#5f636ccc54da82225f31e898e7f27192fe074b4c"
@@ -5870,6 +5942,11 @@ jws@^4.0.0:
   dependencies:
     jwa "^2.0.0"
     safe-buffer "^5.0.1"
+
+keyword-extractor@^0.0.28:
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/keyword-extractor/-/keyword-extractor-0.0.28.tgz#91595476e9ccba9af582142211779a1c78a69aac"
+  integrity sha512-oi7dSPpYtW/3fE0vZiqQgZ8mW3F1V9K4+rBJ0FcVrdXBEQuhZ0zKj7sX74eqGASuepLHf9aYdeonyKHWhYpHQA==
 
 "langchain@>=0.2.3 <0.3.0 || >=0.3.4 <0.4.0", langchain@^0.3.3:
   version "0.3.36"
@@ -6951,6 +7028,11 @@ send@^1.1.0, send@^1.2.0:
     range-parser "^1.2.1"
     statuses "^2.0.1"
 
+sentiment@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/sentiment/-/sentiment-5.0.2.tgz#01e4396d9b5b17b1176f16c9d1a8be87b16cc1d6"
+  integrity sha512-ZeC3y0JsOYTdwujt5uOd7ILJNilbgFzUtg/LEG4wUv43LayFNLZ28ec8+Su+h3saHlJmIwYxBzfDHHZuiMA15g==
+
 serve-static@1.16.2:
   version "1.16.2"
   resolved "https://registry.yarnpkg.com/serve-static/-/serve-static-1.16.2.tgz#b6a5343da47f6bdd2673848bf45754941e803296"
@@ -7080,6 +7162,11 @@ statuses@^2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.2.tgz#8f75eecef765b5e1cfcdc080da59409ed424e382"
   integrity sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==
 
+string-similarity@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/string-similarity/-/string-similarity-4.0.4.tgz#42d01ab0b34660ea8a018da8f56a3309bb8b2a5b"
+  integrity sha512-/q/8Q4Bl4ZKAPjj8WerIBJWALKkaPRfrvhfF8k/B23i4nzrlRj2/go1m90In7nG/3XDSbOo0+pu6RvCTM9RGMQ==
+
 "string-width-cjs@npm:string-width@^4.2.0":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
@@ -7154,6 +7241,11 @@ strnum@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/strnum/-/strnum-2.1.1.tgz#cf2a6e0cf903728b8b2c4b971b7e36b4e82d46ab"
   integrity sha512-7ZvoFTiCnGxBtDqJ//Cu6fWtZtc7Y3x+QOirG15wztbdngGSkht27o2pyGWrVy0b4WAy3jbKmnoK6g5VlVNUUw==
+
+suffix-thumb@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/suffix-thumb/-/suffix-thumb-5.0.2.tgz#b38940faddb3ae8b5fd281c7ec5830c25a6b2c9c"
+  integrity sha512-I5PWXAFKx3FYnI9a+dQMWNqTxoRt6vdBdb0O+BJ1sxXCWtSoQCusc13E58f+9p4MYx/qCnEMkD5jac6K2j3dgA==
 
 supports-color@^7.1.0:
   version "7.2.0"

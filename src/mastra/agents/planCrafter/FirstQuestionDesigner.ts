@@ -1,5 +1,6 @@
 import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
+import { createAnswerRelevancyScorer, createToxicityScorer } from "@mastra/evals/scorers/llm";
 import { Memory } from "@mastra/memory";
 
 const instructions = `
@@ -50,4 +51,14 @@ export const FirstQuestionDesigner = new Agent({
   model: openai("gpt-4o-mini"),
   tools: {},
   memory: new Memory(),
+  scorers: {
+    relevancy: {
+      scorer: createAnswerRelevancyScorer({ model: openai("gpt-4o-mini") }),
+      sampling: { type: "ratio", rate: 0.5 },
+    },
+    safety: {
+      scorer: createToxicityScorer({ model: openai("gpt-4o-mini") }),
+      sampling: { type: "ratio", rate: 1 },
+    },
+  },
 });

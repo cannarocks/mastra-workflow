@@ -1,24 +1,24 @@
 import { registerCopilotKit } from "@ag-ui/mastra/copilotkit";
+import { toAISdkFormat, workflowRoute } from "@mastra/ai-sdk";
 import { Mastra } from "@mastra/core/mastra";
+import { RuntimeContext } from "@mastra/core/runtime-context";
+import { registerApiRoute } from "@mastra/core/server";
 import { LibSQLStore } from "@mastra/libsql";
 import { PinoLogger } from "@mastra/loggers";
-import path from "path";
-import { famousPersonAgent } from "./agents/game/famous-person";
-import { gameAgent } from "./agents/game/game-agent";
+import { createUIMessageStreamResponse } from "ai";
+import { ClassifyMessage } from "./agents/classify-message";
+import { FirstQuestionDesigner } from "./agents/planCrafter/FirstQuestionDesigner";
 import { TemplateSelectorAgent } from "./agents/planCrafter/template-selector";
 import { WorkflowAgent } from "./agents/workflow";
 import { E2ERuntimeContext } from "./steps/types";
+import { parseMessages } from "./utils";
 import { mainWorkflow } from "./workflows/e2e-workflow";
-import { headsUpWorkflow } from "./workflows/game-test";
 import { planCrafterWf } from "./workflows/plan-crafter";
 import { supportWf } from "./workflows/support";
-import { FirstQuestionDesigner } from "./agents/planCrafter/FirstQuestionDesigner";
-import { ClassifyMessage } from "./agents/classify-message";
-import { chatRoute, workflowRoute } from "@mastra/ai-sdk";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
-    url: `file:${path.resolve(__dirname, "../../.storage/storage.db")}`,
+    url: "file:../storage.db",
   }),
   agents: {
     WorkflowAgent,
@@ -43,7 +43,7 @@ export const mastra = new Mastra({
     apiRoutes: [
       registerCopilotKit<E2ERuntimeContext>({
         path: "/copilotkit",
-        resourceId: "TemplateSelectorAgent",
+        resourceId: "mainWorkflow",
         setContext: (c, runtimeContext) => {
           runtimeContext.set("availableTemplates", []);
         },
@@ -51,6 +51,67 @@ export const mastra = new Mastra({
       workflowRoute({
         path: "/workflow",
         workflow: "mainWorkflow",
+      }),
+      registerApiRoute("/provola", {
+        method: "POST",
+        handler: async (c) => {
+          const { runId, resourceId, messages, context, ...rest } =
+            await c.req.json();
+          console.log("########## PROVOLA REQUEST ###########");
+
+          const { lastUserMessage, lastStepName, activeRunId } =
+            parseMessages(messages);
+          console.debug(
+            "🚀 ~ lastUserMessage, lastStepName, activeRunId:",
+            lastUserMessage,
+            lastStepName,
+            activeRunId
+          );
+          const mastra = c.get("mastra");
+          const wf = mastra.getWorkflow("mainWorkflow");
+          const rt = new RuntimeContext();
+          if (context) {
+            rt.set("ag-ui", {
+              context: [
+                {
+                  description: "app.user.context",
+                  value: JSON.stringify(context),
+                },
+              ],
+            });
+          }
+
+          if (!activeRunId) {
+            console.log("Starting new workflow...");
+            // starting a new workflow run
+            const run = await wf.createRunAsync({ runId: activeRunId });
+            const stream = run.stream({
+              inputData: { message: lastUserMessage || "" },
+              runtimeContext: rt,
+            });
+
+            return createUIMessageStreamResponse({
+              stream: toAISdkFormat(stream, {
+                from: "workflow",
+              }),
+            });
+          }
+
+          // resuming an existing workflow run
+          console.log("Resuming workflow...", activeRunId);
+          const run = await wf.createRunAsync({
+            runId: activeRunId,
+          });
+          const stream = run.resumeStream({
+            resumeData: { input: lastUserMessage },
+            runtimeContext: rt,
+          });
+          return createUIMessageStreamResponse({
+            stream: toAISdkFormat(stream, {
+              from: "workflow",
+            }),
+          });
+        },
       }),
     ],
   },

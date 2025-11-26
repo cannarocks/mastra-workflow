@@ -8,7 +8,7 @@ export const printResults = createStep({
   stateSchema: globalStateSchema,
   inputSchema: z.object({
     response: z.string(),
-  }).passthrough(),
+  }),
   outputSchema: z.object({
     message: z.string(),
   }),

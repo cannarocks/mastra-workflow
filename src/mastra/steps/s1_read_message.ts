@@ -1,6 +1,5 @@
-import { createStep } from '@mastra/core/workflows';
+import { createStep } from "@mastra/core/workflows";
 import z from "zod";
-import { ClassifyMessage } from "../agents/classify-message";
 import { getUserContext } from "../utils";
 import { AgUiContext, classificationOutput, globalStateSchema } from "./types";
 
@@ -14,13 +13,7 @@ export const readMessage = createStep({
   stateSchema: globalStateSchema,
   inputSchema,
   outputSchema: classificationOutput,
-  execute: async ({
-    mastra,
-    inputData,
-    state,
-    runtimeContext,
-    setState,
-  }) => {
+  execute: async ({ mastra, inputData, state, runtimeContext, setState }) => {
     console.log("Executing readMessage step...", inputData, state);
     const userContext = getUserContext(
       runtimeContext.get("ag-ui") as AgUiContext
@@ -52,14 +45,11 @@ export const readMessage = createStep({
       );
       runtimeContext.set("userName", user.name || "Unknown User");
     }
-
-    console.log("User context:", userContext, inputData);
-
     const { message } = inputData;
     console.log("Reading message:", message);
 
     const classifyAgent = mastra.getAgent("ClassifyMessage");
-    const stream = await classifyAgent.stream(message, {
+    const res = await classifyAgent.generate(message, {
       output: classificationOutput,
       memory: {
         resource: "e2e-supervisor",
@@ -67,16 +57,32 @@ export const readMessage = createStep({
       },
     });
 
-    let lastChunk: any = {};
-    for await (const chunk of stream.objectStream) {
-      lastChunk = chunk;
-    }
+    const { intent, summary, topic } = res.object;
 
     return {
-      response: lastChunk.response,
-      intent: lastChunk.intent,
-      topic: lastChunk.topic,
-      summary: lastChunk.summary,
+      intent,
+      topic,
+      summary,
     };
+
+    // const stream = await classifyAgent.stream(message, {
+    //   output: classificationOutput,
+    //   memory: {
+    //     resource: "e2e-supervisor",
+    //     thread: "activity-planner",
+    //   },
+    // });
+
+    // let lastChunk: any = {};
+    // for await (const chunk of stream.objectStream) {
+    //   lastChunk = chunk;
+    // }
+
+    // return {
+    //   response: lastChunk.response,
+    //   intent: lastChunk.intent,
+    //   topic: lastChunk.topic,
+    //   summary: lastChunk.summary,
+    // };
   },
 });

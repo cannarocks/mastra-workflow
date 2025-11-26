@@ -1,8 +1,11 @@
 import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
+import {
+  createAnswerRelevancyScorer,
+  createToxicityScorer,
+} from "@mastra/evals/scorers/llm";
 import { LibSQLVector } from "@mastra/libsql";
 import { Memory } from "@mastra/memory";
-import path from "path";
 
 const instructions = `
 Ruolo: Sei il Classifier Agent del workflow UNGUESS. Il tuo unico compito è analizzare la richiesta dell’utente e restituire un output strutturato per gli agenti successivi. Non devi mai rispondere all’utente.
@@ -73,7 +76,7 @@ export const ClassifyMessage = new Agent({
   tools: {},
   memory: new Memory({
     vector: new LibSQLVector({
-      connectionUrl: `file:${path.resolve(__dirname, "../../.storage/storage_workflow.db")}`,
+      connectionUrl: "file:../storage_workflow.db",
     }),
     embedder: openai.embedding("text-embedding-3-small"),
     options: {
@@ -84,4 +87,14 @@ export const ClassifyMessage = new Agent({
       },
     },
   }),
+  scorers: {
+    relevancy: {
+      scorer: createAnswerRelevancyScorer({ model: openai("gpt-4o-mini") }),
+      sampling: { type: "ratio", rate: 0.5 },
+    },
+    safety: {
+      scorer: createToxicityScorer({ model: openai("gpt-4o-mini") }),
+      sampling: { type: "ratio", rate: 1 },
+    },
+  },
 });

@@ -2,10 +2,9 @@ import { RuntimeContext } from "@mastra/core/runtime-context";
 import { createStep } from "@mastra/core/workflows";
 import z from "zod";
 import {
-  classificationOutput,
   E2ERuntimeContext,
   globalStateSchema,
-  templateSelectionSchema,
+  templateSelectionSchema
 } from "../types";
 import { analyzeContextOutput } from "./s2_analyze_context";
 
@@ -34,29 +33,26 @@ export const chooseTemplateStep = createStep({
   inputSchema: schema,
   outputSchema: schema,
   resumeSchema: z.object({
-    userMessage: z.string(),
-  }),
-  suspendSchema: z.object({
-    suspendResponse: z.string(),
+    input: z.string(),
   }),
   execute: async ({ inputData, state, suspend, resumeData, mastra }) => {
     console.log("Executing chooseTemplate step...", inputData, state);
 
     const { iterations_used, next_question } = inputData;
 
-    const { userMessage } = resumeData ?? {};
+    const { input } = resumeData ?? {};
 
-    if (!userMessage) {
+    if (!input) {
       const suspendResponse =
         next_question ||
         "To help craft the best activity plan for your needs, could you please provide more information?";
       console.debug("🚀 ~ next_question:", next_question);
       return await suspend({
-        suspendResponse,
+        message: suspendResponse,
       });
     }
 
-    console.log("MESSAGGIO DI RESUME", userMessage);
+    console.log("MESSAGGIO DI RESUME", input);
 
     const rtContext = new RuntimeContext<E2ERuntimeContext>();
     rtContext.set("availableTemplates", state.availableTemplates || []);
@@ -66,16 +62,15 @@ export const chooseTemplateStep = createStep({
       [
         {
           role: "user",
-          content: `The user said: "${userMessage}"
+          content: `The user said: "${input}"
         Please respond appropriately. Check the available templates and select the best one for the user's needs or send a request to user with an additional question if necessary.`,
         },
       ],
       {
-        runtimeContext: rtContext, 
+        runtimeContext: rtContext,
         structuredOutput: {
           schema: testSchema,
-          model: "openai/gpt-5",
-
+          jsonPromptInjection: true,
         },
       }
     );
@@ -94,8 +89,9 @@ export const chooseTemplateStep = createStep({
       selected_template_id: lastChunk?.selected_template_id ?? undefined,
       confidence_score: lastChunk?.confidence_score,
       selection_rationale: lastChunk?.selection_rationale,
-      templateFound:
-        lastChunk?.confidence_score >= ACCEPTABLE_CONFIDENCE_THRESHOLD,
+      templateFound: lastChunk?.confidence_score
+        ? lastChunk?.confidence_score >= ACCEPTABLE_CONFIDENCE_THRESHOLD
+        : false,
       user_context_summary: {
         business_objective: lastChunk?.business_objective || "",
         touchpoint_url: lastChunk?.touchpoint_url || "",

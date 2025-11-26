@@ -26,10 +26,10 @@ export const TemplateSelectorAgent = new Agent({
   model: openai("gpt-5"),
   tools: {
     getUserTemplates,
-    pageActTool,
-    pageObserveTool,
-    pageExtractTool,
-    pageNavigateTool,
+    // pageActTool,
+    // pageObserveTool,
+    // pageExtractTool,
+    // pageNavigateTool,
   },
   memory: new Memory({
     vector: new LibSQLVector({
