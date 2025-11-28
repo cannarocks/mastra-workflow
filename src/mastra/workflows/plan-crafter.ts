@@ -28,7 +28,7 @@ export const planCrafterWf = createWorkflow({
   )
   .map(async ({ inputData }) => {
     return {
-      response: inputData.response,
+      response: inputData.selection_rationale || "No rationale provided.",
     };
   })
   .then(printResults)

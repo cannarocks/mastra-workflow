@@ -2,12 +2,6 @@ import z from "zod";
 import { cpReqTemplateSchema } from "../tools/api/zodSchema";
 import { CpReqTemplate } from "../tools/api/filtered";
 
-export const classificationOutput = z.object({
-  intent: z.enum(["support_request", "create_test_plan", "out_of_scope"]),
-  topic: z.string(),
-  summary: z.string(),
-});
-
 export const globalStateSchema = z.object({
   workspaceId: z.number().describe("The ID of the workspace."),
   workspaceName: z.string().describe("The name of the workspace."),
@@ -22,22 +16,36 @@ export const globalStateSchema = z.object({
     .optional(),
 });
 
-export const templateSelectionSchema = z.object({
-  selected_template_id: z.string().optional(),
-  confidence_score: z.number().min(0).max(10).default(0),
-  templateFound: z.boolean().default(false),
-  selection_rationale: z.string().optional(),
-  user_context_summary: z
-    .object({
-      business_objective: z.string(),
-      touchpoint_url: z.string(),
-      touchpoint_analysis: z.string(),
-      key_requirements: z.array(z.string()),
-      constraints: z.array(z.string()),
-    })
-    .optional(),
-  iterations_used: z.number().default(0),
+const base = z.object({
+  reasoning: z.string().optional(),
 });
+
+export const classificationOutput = base.merge(
+  z.object({
+    intent: z.enum(["support_request", "create_test_plan", "out_of_scope"]),
+    topic: z.string(),
+    summary: z.string(),
+  })
+);
+
+export const templateSelectionSchema = base.merge(
+  z.object({
+    selected_template_id: z.string().optional(),
+    confidence_score: z.number().min(0).max(10).default(0),
+    templateFound: z.boolean().default(false),
+    selection_rationale: z.string().optional(),
+    user_context_summary: z
+      .object({
+        business_objective: z.string(),
+        touchpoint_url: z.string(),
+        touchpoint_analysis: z.string(),
+        key_requirements: z.array(z.string()),
+        constraints: z.array(z.string()),
+      })
+      .optional(),
+    iterations_used: z.number().default(0),
+  })
+);
 
 /**
  * This will change after moving client chat behind unguess-api

@@ -1,4 +1,4 @@
-import { createStep } from '@mastra/core/workflows';
+import { createStep } from "@mastra/core/workflows";
 import { getUserTemplates } from "../../tools/api/getUserTemplates";
 import {
   classificationOutput,
@@ -44,6 +44,7 @@ export const getTemplatesStep = createStep({
       },
       runtimeContext,
     });
+    console.debug("🚀 ~ response getUserTemplates:", response);
 
     // if (!response || response.length === 0) {
     //   writer.write({
@@ -56,9 +57,15 @@ export const getTemplatesStep = createStep({
 
     setState({
       ...state,
-      availableTemplates: response,
+      availableTemplates: [
+        ...(state.availableTemplates ?? []),
+        ...(response ?? []),
+      ],
     });
 
-    return inputData;
+    return {
+      ...inputData,
+      reasoning: `Fetched ${response?.length || 0} templates for workspace ID ${workspaceId}.`,
+    };
   },
 });

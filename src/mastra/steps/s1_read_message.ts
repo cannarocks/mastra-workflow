@@ -8,23 +8,31 @@ const inputSchema = z.object({
 });
 
 export const readMessage = createStep({
-  id: `ReadMessage`,
+  id: "ReadMessage",
+  // name: "Read and classify message",
   description: "Read the incoming message and extract relevant information.",
   stateSchema: globalStateSchema,
   inputSchema,
   outputSchema: classificationOutput,
-  execute: async ({ mastra, inputData, state, runtimeContext, setState }) => {
+  execute: async ({
+    mastra,
+    inputData,
+    state,
+    runtimeContext,
+    setState,
+    writer,
+  }) => {
     console.log("Executing readMessage step...", inputData, state);
     const userContext = getUserContext(
       runtimeContext.get("ag-ui") as AgUiContext
     );
 
-    // writer.write({
-    //   type: "reasoning",
-    //   step: "message classification",
-    //   message:
-    //     "User asked something, gathering context information to extracting topic, intent and summary...",
-    // });
+    writer.write({
+      type: "reasoning",
+      step: "message classification",
+      message:
+        "User asked something, gathering context information to extracting topic, intent and summary...",
+    });
 
     if (userContext) {
       const { workspace, user, token } = userContext;
@@ -50,7 +58,7 @@ export const readMessage = createStep({
 
     const classifyAgent = mastra.getAgent("ClassifyMessage");
     const res = await classifyAgent.generate(message, {
-      output: classificationOutput,
+      output: classificationOutput.omit({ reasoning: true }),
       memory: {
         resource: "e2e-supervisor",
         thread: "activity-planner",
@@ -63,6 +71,9 @@ export const readMessage = createStep({
       intent,
       topic,
       summary,
+      reasoning:
+        res.reasoning.toLocaleString() ||
+        `Credo sia una richiesta di "${intent}". ${summary}`,
     };
 
     // const stream = await classifyAgent.stream(message, {

@@ -4,7 +4,7 @@ import z from "zod";
 import {
   E2ERuntimeContext,
   globalStateSchema,
-  templateSelectionSchema
+  templateSelectionSchema,
 } from "../types";
 import { analyzeContextOutput } from "./s2_analyze_context";
 
@@ -101,6 +101,7 @@ export const chooseTemplateStep = createStep({
       },
       iterations_used: (iterations_used || 0) + 1,
       next_question: lastChunk?.next_question,
+      reasoning: `User provided additional input, processed template selection with confidence score ${lastChunk?.confidence_score}.`,
     };
   },
 });

@@ -72,7 +72,7 @@ export const ClassifyMessage = new Agent({
 
     return `${instructions} \n\n you know that you are talking with ${userName} from the workspace ${workspacename} and today is ${Date.now().toLocaleString()}. Use this information to better contextualize your answers.`;
   },
-  model: openai("o4-mini"),
+  model: openai("gpt-4.1"),
   tools: {},
   memory: new Memory({
     vector: new LibSQLVector({

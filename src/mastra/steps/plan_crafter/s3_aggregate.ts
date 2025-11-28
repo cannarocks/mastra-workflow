@@ -28,6 +28,7 @@ export const aggregateStep = createStep({
     return {
       ...inputData.getTemplates,
       ...inputData.analyzeContext,
+      reasoning: `Aggregated data from context analysis and template selection.`
     };
   },
 });

@@ -23,13 +23,12 @@ export const TemplateSelectorAgent = new Agent({
     ${Object.keys(templates).length > 0 ? `Available Templates: ${JSON.stringify(templates, null, 2)}` : ""}
     `;
   },
-  model: openai("gpt-5"),
+  model: openai("gpt-4.1"),
   tools: {
-    getUserTemplates,
-    // pageActTool,
-    // pageObserveTool,
-    // pageExtractTool,
-    // pageNavigateTool,
+    pageActTool,
+    pageObserveTool,
+    pageExtractTool,
+    pageNavigateTool,
   },
   memory: new Memory({
     vector: new LibSQLVector({
