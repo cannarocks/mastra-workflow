@@ -1,26 +1,26 @@
-# Stagehand & Mastra Integration
+# e2e-supervisor
 
-A powerful integration that combines the capabilities of [Browserbase's Stagehand](https://stagehand.dev) with [Mastra](https://mastra.ai/) for advanced web automation, scraping, and AI-powered web interactions.
+Workflow orchestrator for AI agents focused on automating and enhancing interactions with the [UNGUESS](https://unguess.io) platform. Built on [Mastra](https://mastra.ai/) for multi-step workflow management, it enables advanced QA automation and intelligent actions on [app.unguess.io](https://app.unguess.io). Stagehand by Browserbase is used as a backend for browser automation, but the main focus is on UNGUESS-centric workflows.
 
 ## Overview
 
-This project enables AI agents to interact with web pages through the Mastra framework using Stagehand's browser automation capabilities. It provides tools for web navigation, element observation, data extraction, and action execution, all orchestrated through Mastra's agent system.
+This project empowers AI agents to execute multi-step workflows that interact with [app.unguess.io](https://app.unguess.io), automating QA processes, data collection, and platform actions. The orchestration is handled by Mastra, enabling iterative information gathering, template selection, and plan creation tailored for UNGUESS use cases. Stagehand provides browser automation capabilities as needed.
 
 ## Features
 
-- **Web Navigation**: Navigate to websites programmatically
-- **Element Observation**: Identify and locate elements on web pages
-- **Action Execution**: Perform actions like clicking buttons or filling forms
-- **Data Extraction**: Extract structured data from web pages
-- **Session Management**: Smart session handling with automatic timeouts and reconnection
-- **AI-Powered Interactions**: Leverage OpenAI models for intelligent web interactions
+- **UNGUESS Workflow Automation**: Multi-step workflows designed for actions and QA on app.unguess.io
+- **Iterative Data Collection**: Conversational steps to gather all necessary information from the user
+- **Template Selection**: AI-driven selection of the best test or QA template for UNGUESS activities
+- **Global State Management**: Shared state across workflow steps for context-aware automation
+- **Browser Automation**: Execute web actions on UNGUESS via Stagehand (secondary feature)
+- **AI-Powered Reasoning**: Use OpenAI models for intelligent decision-making and interaction
 
 ## Installation
 
 ### Prerequisites
 
 - Node.js (v20+)
-- pnpm
+- yarn
 - Browserbase account
 - OpenAI API access
 
@@ -29,14 +29,14 @@ This project enables AI agents to interact with web pages through the Mastra fra
 1. Clone the repository:
 
    ```
-   git clone https://github.com/mastra-ai/template-browsing-agent.git
-   cd template-browsing-agent
+   git clone https://github.com/mastra-ai/e2e-supervisor.git
+   cd e2e-supervisor
    ```
 
 2. Install dependencies:
 
    ```
-   pnpm install
+   yarn
    ```
 
 3. Create a `.env` file with your API keys:
@@ -51,44 +51,32 @@ This project enables AI agents to interact with web pages through the Mastra fra
 ### Running the development server
 
 ```
-pnpm run dev
+yarn run dev
 ```
 
-This will start the Mastra development server, giving you access to the integrated web agent.
+This will start the Mastra development server, exposing endpoints for UNGUESS workflow automation.
 
 ## Architecture
 
 ### Core Components
 
-1. **Stagehand Session Manager**
-   - Handles browser session initialization and management
-   - Implements automatic session timeouts
-   - Provides error recovery and reconnection logic
+1. **UNGUESS Workflow Engine**
+   - Multi-step workflows for QA and automation on app.unguess.io
+   - Iterative user interaction and data gathering
+   - Template selection and plan creation tailored for UNGUESS
 
-2. **Mastra Tools**
-   - `stagehandActTool`: Performs actions on web pages
-   - `stagehandObserveTool`: Identifies elements on web pages
-   - `stagehandExtractTool`: Extracts data from web pages
+2. **Mastra Agents**
+   - Orchestrate workflow logic, decision-making, and state management
 
-3. **Web Agent**
-   - AI-powered agent using OpenAI's model
-   - Provides natural language interface to web automation
-   - Integrates all tools into a unified experience
+3. **Stagehand Integration**
+   - Optional browser automation for executing actions on UNGUESS
 
 ### Flow Diagram
 
 ```
-User Query → Mastra Agent → Stagehand Tools → Browser Interaction → Web Page → Data/Results → Agent Response
+User Query → Mastra Workflow → Multi-step Data Collection → Template Selection → Actions on app.unguess.io → Results/Feedback
 ```
 
 ## Configuration
 
-The project can be configured through the `.env` file and by modifying the agent instructions in `src/mastra/agents/index.ts`.
-
-## Credits
-
-This project is built with:
-
-- [Mastra](https://mastra.ai) - AI Agent framework
-- [Stagehand by Browserbase](https:/stagehand.dev) - Browser automation
-- [OpenAI](https://openai.com/) - AI models
+Customize agents, templates, and workflow logic in `src/mastra/agents/` and `src/mastra/steps/`. Main workflow logic is in `src/mastra/workflows/e2e-workflow.ts`.
