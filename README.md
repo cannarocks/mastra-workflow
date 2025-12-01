@@ -1,4 +1,5 @@
 # e2e-supervisor
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/cannarocks/mastra-workflow)
 
 Workflow orchestrator for AI agents focused on automating and enhancing interactions with the [UNGUESS](https://unguess.io) platform. Built on [Mastra](https://mastra.ai/) for multi-step workflow management, it enables advanced QA automation and intelligent actions on [app.unguess.io](https://app.unguess.io). Stagehand by Browserbase is used as a backend for browser automation, but the main focus is on UNGUESS-centric workflows.
 
