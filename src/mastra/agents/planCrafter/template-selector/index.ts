@@ -36,10 +36,10 @@ export const TemplateSelectorAgent = new Agent({
     }),
     embedder: openai.embedding("text-embedding-3-small"),
     options: {
-      lastMessages: 5,
+      lastMessages: 10,
       semanticRecall: {
         topK: 10,
-        messageRange: 1,
+        messageRange: 5,
       },
     },
   }),

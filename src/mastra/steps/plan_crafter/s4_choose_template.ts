@@ -75,8 +75,6 @@ export const chooseTemplateStep = createStep({
       }
     );
 
-    console.debug("🚀 ~ response templator:", response);
-
     let lastChunk = response.object;
     // for await (const chunk of response.objectStream) {
     //   lastChunk = chunk;
