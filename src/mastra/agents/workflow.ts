@@ -2,7 +2,6 @@ import { Agent } from "@mastra/core/agent";
 import { mainWorkflow } from "../workflows/e2e-workflow";
 import { openai } from "@ai-sdk/openai";
 import { Memory } from "@mastra/memory";
-import { headsUpWorkflow } from "../workflows/game-test";
 
 const memory = new Memory();
 
