@@ -48,11 +48,7 @@ export const mastra = new Mastra({
           runtimeContext.set("availableTemplates", []);
         },
       }),
-      workflowRoute({
-        path: "/workflow",
-        workflow: "mainWorkflow",
-      }),
-      registerApiRoute("/provola", {
+      registerApiRoute("/workflow", {
         method: "POST",
         handler: async (c) => {
           const { runId, resourceId, messages, context, ...rest } =
