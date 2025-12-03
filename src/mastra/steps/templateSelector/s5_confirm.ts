@@ -29,7 +29,7 @@ export const confirmStep = createStep({
       [
         {
           role: "user",
-          content: `The selected template ID is: ${selected_template_id}.the users says: "${input}".`,
+          content: `The selected template ID is: ${selected_template_id}. The user says: "${input}".`,
         },
       ],
       {
