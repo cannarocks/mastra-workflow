@@ -7,22 +7,26 @@ import { LibSQLStore } from "@mastra/libsql";
 import { PinoLogger } from "@mastra/loggers";
 import { createUIMessageStreamResponse } from "ai";
 import { ClassifyMessage } from "./agents/classify-message";
-import { FirstQuestionDesigner } from "./agents/planCrafter/FirstQuestionDesigner";
-import { TemplateSelectorAgent } from "./agents/planCrafter/template-selector";
+import { FirstQuestionDesigner } from "./agents/templateSelector/FirstQuestionDesigner";
+import { TemplateSelectorAgent } from "./agents/templateSelector/TemplateSelectorAgent";
 import { WorkflowAgent } from "./agents/workflow";
 import { E2ERuntimeContext } from "./steps/types";
 import { parseMessages } from "./utils";
 import { mainWorkflow } from "./workflows/e2e-workflow";
-import { planCrafterWf } from "./workflows/plan-crafter";
+import { planCrafterWf } from "./workflows/plan_crafter";
 import { supportWf } from "./workflows/support";
+import { templateSelectorWf } from "./workflows/template_selector";
+import { fillPlanWf } from "./workflows/fill_plan";
+import { ConfirmTemplate } from "./agents/templateSelector/confirmTemplate";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
-    url: "file:../storage.db",
+    url: "file:../../.storage/storage.db",
   }),
   agents: {
     WorkflowAgent,
     TemplateSelectorAgent,
+    ConfirmTemplate,
     FirstQuestionDesigner,
     ClassifyMessage,
   },
@@ -33,7 +37,13 @@ export const mastra = new Mastra({
   observability: {
     default: { enabled: true },
   },
-  workflows: { mainWorkflow, planCrafterWf, supportWf },
+  workflows: {
+    mainWorkflow,
+    planCrafterWf,
+    supportWf,
+    templateSelectorWf,
+    fillPlanWf,
+  },
   server: {
     cors: {
       origin: "*",

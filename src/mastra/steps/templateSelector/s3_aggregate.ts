@@ -1,15 +1,12 @@
-import { createStep } from '@mastra/core/workflows';
+import { createStep } from "@mastra/core/workflows";
 import z from "zod";
-import { TemplateSelectorAgent } from "../../agents/planCrafter/template-selector";
 import {
-  classificationOutput,
   globalStateSchema,
-  templateSelectionSchema,
+  templateSelectionSchema
 } from "../types";
+import { templateStepOutput } from "./s1_get_templates";
 import { analyzeContextOutput } from "./s2_analyze_context";
 
-const ACCEPTABLE_CONFIDENCE_THRESHOLD = 7;
-const MAX_ITERATIONS = 5;
 
 export const aggregateStep = createStep({
   id: `aggregateStep`,
@@ -18,9 +15,11 @@ export const aggregateStep = createStep({
   stateSchema: globalStateSchema,
   inputSchema: z.object({
     analyzeContext: analyzeContextOutput,
-    getTemplates: templateSelectionSchema,
+    getTemplates: templateStepOutput,
   }),
-  outputSchema: analyzeContextOutput.merge(templateSelectionSchema),
+  outputSchema: analyzeContextOutput
+    .merge(templateSelectionSchema)
+    .merge(templateStepOutput),
 
   execute: async ({ inputData, state }) => {
     console.log("Executing aggregateStep step...", inputData, state);
@@ -28,7 +27,10 @@ export const aggregateStep = createStep({
     return {
       ...inputData.getTemplates,
       ...inputData.analyzeContext,
-      reasoning: `Aggregated data from context analysis and template selection.`
+      confidence_score: 0,
+      templateFound: false,
+      iterations_used: 0,
+      reasoning: `Aggregated data from context analysis and template selection.`,
     };
   },
 });

@@ -1,16 +1,15 @@
 import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
+import { LibSQLVector } from "@mastra/libsql";
 import { Memory } from "@mastra/memory";
-import { instructions } from "./prompt";
 import { pageActTool } from "../../../tools/search/page-act-tool";
-import { pageObserveTool } from "../../../tools/search/page-observe-tool";
 import { pageExtractTool } from "../../../tools/search/page-extract-tool";
 import { pageNavigateTool } from "../../../tools/search/page-navigate-tool";
-import { LibSQLVector } from "@mastra/libsql";
-import { getUserTemplates } from "../../../tools/api/getUserTemplates";
+import { pageObserveTool } from "../../../tools/search/page-observe-tool";
+import { instructions } from "./prompt";
 
 export const TemplateSelectorAgent = new Agent({
-  id: "TemplateSelectorAgent",
+  id: "template_selector_agent",
   name: "Template Selector Agent",
   instructions: ({ runtimeContext, ...other }) => {
     const templates = runtimeContext.get("availableTemplates") || {};
@@ -32,7 +31,7 @@ export const TemplateSelectorAgent = new Agent({
   },
   memory: new Memory({
     vector: new LibSQLVector({
-      connectionUrl: `file:../templateselector-agent.db`,
+      connectionUrl: `file:../../.storage/templateselector-agent.db`,
     }),
     embedder: openai.embedding("text-embedding-3-small"),
     options: {
@@ -40,6 +39,7 @@ export const TemplateSelectorAgent = new Agent({
       semanticRecall: {
         topK: 10,
         messageRange: 5,
+        scope: "resource",
       },
     },
   }),

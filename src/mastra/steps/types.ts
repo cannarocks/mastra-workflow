@@ -10,10 +10,6 @@ export const globalStateSchema = z.object({
   jwt: z.string().describe("JWT for authentication."),
   planId: z.number().optional().describe("The ID of the test plan."),
   templateId: z.number().optional().describe("The ID of the template."),
-  availableTemplates: z
-    .array(cpReqTemplateSchema)
-    .describe("Available templates for current workspace.")
-    .optional(),
 });
 
 const base = z.object({
