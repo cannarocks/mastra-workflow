@@ -2,7 +2,7 @@ import { createWorkflow } from '@mastra/core/workflows';
 import z from "zod";
 import { readMessage } from "../steps/s1_read_message";
 import { globalStateSchema } from "../steps/types";
-import { planCrafterWf } from "./plan-crafter";
+import { planCrafterWf } from "./plan_crafter";
 import { supportWf } from "./support";
 
 export const mainWorkflow = createWorkflow({

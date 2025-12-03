@@ -1,17 +1,22 @@
 import { createStep } from "@mastra/core/workflows";
+import z from "zod";
 import { getUserTemplates } from "../../tools/api/getUserTemplates";
-import {
-  classificationOutput,
-  globalStateSchema,
-  templateSelectionSchema,
-} from "../types";
+import { cpReqTemplateSchema } from "../../tools/api/zodSchema";
+import { classificationOutput, globalStateSchema } from "../types";
+
+export const templateStepOutput = z.object({
+  templates: z
+    .array(cpReqTemplateSchema)
+    .describe("List of templates retrieved from the API."),
+  reasoning: z.string().describe("Reasoning behind fetching templates."),
+});
 
 export const getTemplatesStep = createStep({
   id: "getTemplates",
   description: "Fetch available templates from the API.",
   stateSchema: globalStateSchema,
   inputSchema: classificationOutput,
-  outputSchema: templateSelectionSchema,
+  outputSchema: templateStepOutput,
   execute: async ({
     inputData,
     state,
@@ -55,16 +60,8 @@ export const getTemplatesStep = createStep({
     //   });
     // }
 
-    setState({
-      ...state,
-      availableTemplates: [
-        ...(state.availableTemplates ?? []),
-        ...(response ?? []),
-      ],
-    });
-
     return {
-      ...inputData,
+      templates: response || [],
       reasoning: `Fetched ${response?.length || 0} templates for workspace ID ${workspaceId}.`,
     };
   },

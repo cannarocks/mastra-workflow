@@ -76,7 +76,7 @@ export const ClassifyMessage = new Agent({
   tools: {},
   memory: new Memory({
     vector: new LibSQLVector({
-      connectionUrl: "file:../storage_workflow.db",
+      connectionUrl: "file:../../.storage/storage_workflow.db",
     }),
     embedder: openai.embedding("text-embedding-3-small"),
     options: {
