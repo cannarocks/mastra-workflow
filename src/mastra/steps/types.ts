@@ -85,3 +85,16 @@ export type E2ERuntimeContext = {
   availableTemplates: Array<CpReqTemplate>;
   "ag-ui": AgUiContext;
 };
+
+export const fillPlanInputSchema = templateSelectionSchema
+  .omit({
+    templateFound: true,
+    iterations_used: true,
+  })
+  .merge(
+    z.object({
+      reasoning: z
+        .string()
+        .describe("The reasoning behind the template selection."),
+    })
+  );

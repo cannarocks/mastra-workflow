@@ -6,8 +6,8 @@ import {
   globalStateSchema,
   templateSelectionSchema,
 } from "../types";
-import { analyzeContextOutput } from "./s2_analyze_context";
 import { templateStepOutput } from "./s1_get_templates";
+import { analyzeContextOutput } from "./s2_analyze_context";
 
 const ACCEPTABLE_CONFIDENCE_THRESHOLD = 7;
 
@@ -37,8 +37,8 @@ export const chooseTemplateStep = createStep({
   resumeSchema: z.object({
     input: z.string(),
   }),
-  execute: async ({ inputData, state, suspend, resumeData, mastra }) => {
-    console.log("Executing chooseTemplate step...", inputData, state);
+  execute: async ({ inputData, suspend, resumeData, mastra }) => {
+    console.log("Executing chooseTemplate step...", inputData);
 
     const { iterations_used, next_question, templates } = inputData;
 

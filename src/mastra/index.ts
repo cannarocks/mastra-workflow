@@ -39,10 +39,10 @@ export const mastra = new Mastra({
   },
   workflows: {
     mainWorkflow,
+    fillPlanWf,
     planCrafterWf,
     supportWf,
     templateSelectorWf,
-    fillPlanWf,
   },
   server: {
     cors: {

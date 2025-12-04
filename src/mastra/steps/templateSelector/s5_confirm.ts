@@ -12,8 +12,8 @@ export const confirmStep = createStep({
   resumeSchema: z.object({
     input: z.string(),
   }),
-  execute: async ({ inputData, state, resumeData, mastra, bail, suspend }) => {
-    console.log("Executing confirmStep step...", inputData, state);
+  execute: async ({ inputData, resumeData, mastra, bail, suspend }) => {
+    console.log("Executing confirmStep step...", inputData);
     const { selected_template_id, selection_rationale } = inputData;
     const { input } = resumeData ?? {};
 

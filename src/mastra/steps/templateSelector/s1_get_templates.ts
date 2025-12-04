@@ -25,7 +25,7 @@ export const getTemplatesStep = createStep({
     resumeData,
     setState,
   }) => {
-    console.log("Executing getTemplates step...", inputData, state);
+    console.log("Executing getTemplates step...", inputData);
     const { workspaceId: stateWorkspaceId } = state;
     const workspaceId = stateWorkspaceId || resumeData?.workspaceId;
     if (!workspaceId) {
