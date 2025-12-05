@@ -39,7 +39,6 @@ export const TemplateSelectorAgent = new Agent({
       semanticRecall: {
         topK: 10,
         messageRange: 5,
-        scope: "resource",
       },
     },
   }),

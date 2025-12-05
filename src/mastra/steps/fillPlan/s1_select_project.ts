@@ -30,6 +30,7 @@ export const selectProjectStep = createStep({
 
     return {
       ...inputData,
+      project_id: input,
       reasoning: `L'utente ha scelto di creare l'attività nel progetto con ID: ${input}`,
     };
   },

@@ -12,7 +12,7 @@ import { analyzeContextOutput } from "./s2_analyze_context";
 const ACCEPTABLE_CONFIDENCE_THRESHOLD = 7;
 
 const testSchema = z.object({
-  selected_template_id: z.string().nullable(),
+  selected_template_id: z.number().nullable(),
   confidence_score: z.number().min(0).max(10).default(0),
   selection_rationale: z.string().nullable(),
   business_objective: z.string().nullable(),
