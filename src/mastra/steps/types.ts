@@ -1,5 +1,5 @@
 import z from "zod";
-import { cpReqTemplateSchema } from "../tools/api/zodSchema";
+import { moduleSchema } from "../tools/api/zodSchema";
 import { CpReqTemplate } from "../tools/api/filtered";
 
 export const globalStateSchema = z.object({
@@ -26,7 +26,7 @@ export const classificationOutput = base.merge(
 
 export const templateSelectionSchema = base.merge(
   z.object({
-    selected_template_id: z.string().optional(),
+    selected_template_id: z.number().optional(),
     confidence_score: z.number().min(0).max(10).default(0),
     templateFound: z.boolean().default(false),
     selection_rationale: z.string().optional(),
@@ -90,6 +90,7 @@ export const fillPlanInputSchema = templateSelectionSchema
   .omit({
     templateFound: true,
     iterations_used: true,
+    confidence_score: true,
   })
   .merge(
     z.object({
@@ -98,3 +99,12 @@ export const fillPlanInputSchema = templateSelectionSchema
         .describe("The reasoning behind the template selection."),
     })
   );
+
+export const planConfigurationSchema = fillPlanInputSchema.merge(
+  z.object({
+    plan_id: z.number().describe("The ID of the created plan."),
+    config: z.object({
+      modules: z.array(moduleSchema),
+    }),
+  })
+);

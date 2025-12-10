@@ -106,7 +106,7 @@ export const chooseTemplateStep = createStep({
       },
       iterations_used: (iterations_used || 0) + 1,
       next_question: lastChunk?.next_question,
-      reasoning: `Considerando le nuove informazioni, cerco un template adatto (confidenza ${lastChunk?.confidence_score}). Ricordiamoci sempre che ${lastChunk?.business_objective || "..."}`,
+      reasoning: `Considerando le nuove informazioni, cerco un template adatto${lastChunk?.confidence_score ? " (confidenza ${lastChunk?.confidence_score})" : ""}. Ricordiamoci sempre che ${lastChunk?.business_objective || "..."}`,
     };
   },
 });
