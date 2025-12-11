@@ -12,8 +12,8 @@ export const printResults = createStep({
   outputSchema: z.object({
     message: z.string(),
   }),
-  execute: async ({ inputData, state }) => {
-    console.log("Executing printResults step...", inputData, state);
+  execute: async ({ inputData }) => {
+    console.log("Executing printResults step...", inputData);
     const { response } = inputData;
     console.log("Reading response:", response);
 

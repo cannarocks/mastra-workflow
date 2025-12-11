@@ -6,13 +6,13 @@ import {
   globalStateSchema,
   templateSelectionSchema,
 } from "../types";
-import { analyzeContextOutput } from "./s2_analyze_context";
 import { templateStepOutput } from "./s1_get_templates";
+import { analyzeContextOutput } from "./s2_analyze_context";
 
 const ACCEPTABLE_CONFIDENCE_THRESHOLD = 7;
 
 const testSchema = z.object({
-  selected_template_id: z.string().nullable(),
+  selected_template_id: z.number().nullable(),
   confidence_score: z.number().min(0).max(10).default(0),
   selection_rationale: z.string().nullable(),
   business_objective: z.string().nullable(),
@@ -37,8 +37,8 @@ export const chooseTemplateStep = createStep({
   resumeSchema: z.object({
     input: z.string(),
   }),
-  execute: async ({ inputData, state, suspend, resumeData, mastra }) => {
-    console.log("Executing chooseTemplate step...", inputData, state);
+  execute: async ({ inputData, suspend, resumeData, mastra }) => {
+    console.log("Executing chooseTemplate step...", inputData);
 
     const { iterations_used, next_question, templates } = inputData;
 
@@ -106,7 +106,7 @@ export const chooseTemplateStep = createStep({
       },
       iterations_used: (iterations_used || 0) + 1,
       next_question: lastChunk?.next_question,
-      reasoning: `Considerando le nuove informazioni, cerco un template adatto (confidenza ${lastChunk?.confidence_score}). Ricordiamoci sempre che ${lastChunk?.business_objective || "..."}`,
+      reasoning: `Considerando le nuove informazioni, cerco un template adatto${lastChunk?.confidence_score ? " (confidenza ${lastChunk?.confidence_score})" : ""}. Ricordiamoci sempre che ${lastChunk?.business_objective || "..."}`,
     };
   },
 });

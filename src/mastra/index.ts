@@ -18,6 +18,9 @@ import { supportWf } from "./workflows/support";
 import { templateSelectorWf } from "./workflows/template_selector";
 import { fillPlanWf } from "./workflows/fill_plan";
 import { ConfirmTemplate } from "./agents/templateSelector/confirmTemplate";
+import { SetupPlan } from "./agents/fillPlan/setup-plan";
+import { TaskGenerator } from "./agents/fillPlan/task-generator";
+import { DefineTarget } from "./agents/fillPlan/define-target";
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
@@ -29,6 +32,9 @@ export const mastra = new Mastra({
     ConfirmTemplate,
     FirstQuestionDesigner,
     ClassifyMessage,
+    SetupPlan,
+    DefineTarget,
+    TaskGenerator,
   },
   logger: new PinoLogger({
     name: "Mastra",
@@ -39,10 +45,10 @@ export const mastra = new Mastra({
   },
   workflows: {
     mainWorkflow,
+    fillPlanWf,
     planCrafterWf,
     supportWf,
     templateSelectorWf,
-    fillPlanWf,
   },
   server: {
     cors: {

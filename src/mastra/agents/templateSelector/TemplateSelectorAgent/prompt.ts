@@ -175,7 +175,7 @@ FORMATO OUTPUT FINALE (INTERNO, NON DA MOSTRARE ALL'UTENTE)
   "user_context_summary": {
     "business_objective": "string",
     "touchpoint_url": "string",
-    "touchpoint_analysis": "string",
+    "touchpoint_analysis": "stringa contenente le informazioni raccolta dalla navigazione dell'URL",
     "key_requirements": ["..."],
     "constraints": ["..."]
   },

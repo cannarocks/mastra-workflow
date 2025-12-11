@@ -22,7 +22,7 @@ export const aggregateStep = createStep({
     .merge(templateStepOutput),
 
   execute: async ({ inputData, state }) => {
-    console.log("Executing aggregateStep step...", inputData, state);
+    console.log("Executing aggregateStep step...", inputData);
 
     return {
       ...inputData.getTemplates,
